@@ -1,0 +1,2 @@
+# AzureTemplateDemo
+testing azure template
