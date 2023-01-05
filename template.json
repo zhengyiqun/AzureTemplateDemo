@@ -25,7 +25,7 @@
         "vnetSubnet-name": "[concat(parameters('virtualMachine_name'),'-internal')]",
         "vnetSecurityGroup-name": "[concat(parameters('virtualMachine_name'),'-nsg')]",
         "StorageAccount-name": "[concat(parameters('virtualMachine_name'),'storage')]",
-        "FileShare-name": "[concat(parameters('virtualMachine_name'),'arbitrum')]",
+        "FileShare-name": "[concat(parameters('virtualMachine_name'),'fileshare')]",
         "location": "[resourceGroup().location]"
     },
     "resources": [
