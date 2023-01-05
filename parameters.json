@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualMachine_name": {
-            "value": "suichain"
+            "value": "arbitrum"
         },
         "vmSize": {
             "value": "Standard_D2s_v3"

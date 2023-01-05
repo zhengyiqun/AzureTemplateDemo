@@ -4,7 +4,7 @@
     "parameters": {
         "virtualMachine_name": {
             "type": "string",
-            "defaultValue": "suichain"
+            "defaultValue": "arbitrum"
         },
         "adminUsername": {
             "type": "string",
@@ -25,6 +25,7 @@
         "vnetSubnet-name": "[concat(parameters('virtualMachine_name'),'-internal')]",
         "vnetSecurityGroup-name": "[concat(parameters('virtualMachine_name'),'-nsg')]",
         "StorageAccount-name": "[concat(parameters('virtualMachine_name'),'storage')]",
+        "FileShare-name": "[concat(parameters('virtualMachine_name'),'arbitrum')]",
         "location": "[resourceGroup().location]"
     },
     "resources": [
@@ -40,6 +41,14 @@
                 "name": "Standard_LRS"
             },
             "kind": "Storage"
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2021-04-01",
+            "name": "[format('{0}/default/{1}', variables('StorageAccount-name'), variables('FileShare-name'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount-name'))]"
+            ]
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
@@ -84,7 +93,7 @@
                             "description": "description",
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "9000",
+                            "destinationPortRange": "8547",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
@@ -93,12 +102,26 @@
                         }
                     },
                     {
-                        "name": "Metrics",
+                        "name": "WebSocket",
                         "properties": {
                             "description": "description",
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "9184",
+                            "destinationPortRange": "8548",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 102,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "SequencerFeed",
+                        "properties": {
+                            "description": "description",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "9642",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
