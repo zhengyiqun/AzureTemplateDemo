@@ -45,7 +45,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
-            "apiVersion": "2021-04-01",
+            "apiVersion": "2022-05-01",
             "name": "[format('{0}/default/{1}', variables('StorageAccount-name'), variables('FileShare-name'))]",
             "properties": {
                 "enabledProtocols": "SMB",
