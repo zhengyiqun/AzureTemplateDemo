@@ -54,8 +54,8 @@
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('StorageAccount-name'))]"
             ],
             "properties": {
-                "enabledProtocols": "NFS",
-                "rootSquash": "NoRootSquash",
+                //"enabledProtocols": "NFS",
+                //"rootSquash": "NoRootSquash",
                 "shareQuota": 102400
 
             }
