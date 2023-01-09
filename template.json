@@ -26,7 +26,7 @@
         "vnetSecurityGroup-name": "[concat(parameters('virtualMachine_name'),'-nsg')]",
         "StorageAccount-name": "[concat(parameters('virtualMachine_name'),'storage')]",
         "FileShare-name": "[concat(parameters('virtualMachine_name'),'fileshare')]",
-        "Datadisk-name": "[concat(parameters('virtualMachine_name'),'-datadisk1')]",
+        // "Datadisk-name": "[concat(parameters('virtualMachine_name'),'-datadisk1')]",
         "location": "[resourceGroup().location]"
     },
     "resources": [
@@ -199,22 +199,22 @@
                 ]
             }
         },
-        {
-            "type": "Microsoft.Compute/disks",
-            "apiVersion": "2022-03-02",
-            "name": "[variables('Datadisk-name')]",
-            "location": "[resourceGroup().location]",
-            "sku": {
-                "name": "Premium_LRS"
-            },
-            "properties": {
-                "creationData": {
-                    "createOption": "Empty"
-                },
-                "diskSizeGB": 2048,
-                "tier": "P40"
-            }
-        },
+        // {
+        //     "type": "Microsoft.Compute/disks",
+        //     "apiVersion": "2022-03-02",
+        //     "name": "[variables('Datadisk-name')]",
+        //     "location": "[resourceGroup().location]",
+        //     "sku": {
+        //         "name": "Premium_LRS"
+        //     },
+        //     "properties": {
+        //         "creationData": {
+        //             "createOption": "Empty"
+        //         },
+        //         "diskSizeGB": 2048,
+        //         "tier": "P40"
+        //     }
+        // },
         {
             "name": "[parameters('virtualMachine_name')]",
             "type": "Microsoft.Compute/virtualMachines",
@@ -246,17 +246,17 @@
                         "name": "ubuntuVM1-OSDisk",
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
-                    },
-                    "dataDisks": [
-                        {
-                            "name": "[variables('Datadisk-name')]",
-                            "lun": 0,
-                            "createOption": "attach",
-                            "managedDisk": {
-                                "id": "[resourceId('Microsoft.Compute/disks/', variables('Datadisk-name'))]"
-                            }
-                        }
-                    ]
+                    }
+                    // "dataDisks": [
+                    //     {
+                    //         "name": "[variables('Datadisk-name')]",
+                    //         "lun": 0,
+                    //         "createOption": "attach",
+                    //         "managedDisk": {
+                    //             "id": "[resourceId('Microsoft.Compute/disks/', variables('Datadisk-name'))]"
+                    //         }
+                    //     }
+                    // ]
                 },
                 "networkProfile": {
                     "networkInterfaces": [
