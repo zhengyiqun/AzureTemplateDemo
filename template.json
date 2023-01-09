@@ -41,7 +41,10 @@
             "sku": {
                 "name": "Standard_LRS"
             },
-            "kind": "StorageV2"
+            "kind": "StorageV2",
+            "properties": {
+                "largeFileSharesState": "Enabled"
+            }
         },
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
