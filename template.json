@@ -24,7 +24,8 @@
         "vnetPubilcIP-name": "[concat(parameters('virtualMachine_name'),'-external')]",
         "vnetSubnet-name": "[concat(parameters('virtualMachine_name'),'-internal')]",
         "vnetSecurityGroup-name": "[concat(parameters('virtualMachine_name'),'-nsg')]",
-        "StorageAccount-name": "[concat(parameters('virtualMachine_name'),'storage')]",
+        //"StorageAccount-name": "[concat(parameters('virtualMachine_name'),'storage')]",
+        "StorageAccount-name": "[concat(parameters('virtualMachine_name'),uniqueString(resourceGroup().id))]",
         "FileShare-name": "[concat(parameters('virtualMachine_name'),'fileshare')]",
         // "Datadisk-name": "[concat(parameters('virtualMachine_name'),'-datadisk1')]",
         "location": "[resourceGroup().location]"
@@ -32,7 +33,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[concat(toLower(variables('StorageAccount-name')),uniqueString(resourceGroup().id))]",
+            "name": "[variables('StorageAccount-name')]",
             "apiVersion": "2021-04-01",
             "location": "[variables('location')]",
             "tags": {
