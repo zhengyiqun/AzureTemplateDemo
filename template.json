@@ -32,7 +32,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('StorageAccount-name')]",
+            "name": "[concat(toLower(variables('StorageAccount-name')),uniqueString(resourceGroup().id))]",
             "apiVersion": "2021-04-01",
             "location": "[variables('location')]",
             "tags": {
