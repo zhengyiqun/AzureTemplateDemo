@@ -274,27 +274,27 @@
                     }
                 }
             }
-        },
-        {
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('virtualMachine_name'),'/installDocker')]",
-            "apiVersion": "2021-11-01",
-            "location": "[variables('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachine_name'))]"
-            ],
-            "properties": {
-                "publisher": "Microsoft.Azure.Extensions",
-                "type": "CustomScript",
-                "typeHandlerVersion": "2.1",
-                "autoUpgradeMinorVersion": true,
-                "settings": {
-                },
-                "protectedSettings": {
-                    "commandToExecute": "sh install.sh",
-                    "fileUris": ["https://raw.githubusercontent.com/zhengyiqun/AzureTemplateDemo/main/script/install.sh"]
-                }
-            }
         }
+        // {
+        //     "type": "Microsoft.Compute/virtualMachines/extensions",
+        //     "name": "[concat(parameters('virtualMachine_name'),'/installDocker')]",
+        //     "apiVersion": "2021-11-01",
+        //     "location": "[variables('location')]",
+        //     "dependsOn": [
+        //         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachine_name'))]"
+        //     ],
+        //     "properties": {
+        //         "publisher": "Microsoft.Azure.Extensions",
+        //         "type": "CustomScript",
+        //         "typeHandlerVersion": "2.1",
+        //         "autoUpgradeMinorVersion": true,
+        //         "settings": {
+        //         },
+        //         "protectedSettings": {
+        //             "commandToExecute": "sh install.sh",
+        //             "fileUris": ["https://raw.githubusercontent.com/zhengyiqun/AzureTemplateDemo/main/script/install.sh"]
+        //         }
+        //     }
+        // }
     ]
 }
