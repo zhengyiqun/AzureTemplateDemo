@@ -223,7 +223,8 @@
             "apiVersion": "2021-03-01",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', variables('vnetInterfaces-name'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('vnetInterfaces-name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts/', variables('StorageAccount-name'))]"
             ],
             "tags": {
                 "displayName": "ubuntuVM1"
@@ -266,35 +267,35 @@
                             "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vnetInterfaces-name'))]"
                         }
                     ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('StorageAccount-name'))).primaryEndpoints.blob]"
+                    }
                 }
-                // "diagnosticsProfile": {
-                //     "bootDiagnostics": {
-                //         "enabled": true,
-                //         "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('StorageAccount-name'))).primaryEndpoints.blob]"
-                //     }
-                // }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(parameters('virtualMachine_name'),'/installDocker')]",
+            "apiVersion": "2021-11-01",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachine_name'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.1",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                },
+                "protectedSettings": {
+                    "commandToExecute": "sh install.sh",
+                    "fileUris": ["https://raw.githubusercontent.com/zhengyiqun/AzureTemplateDemo/main/script/install.sh"]
+                }
             }
         }
-        // {
-        //     "type": "Microsoft.Compute/virtualMachines/extensions",
-        //     "name": "[concat(parameters('virtualMachine_name'),'/installDocker')]",
-        //     "apiVersion": "2021-11-01",
-        //     "location": "[variables('location')]",
-        //     "dependsOn": [
-        //         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachine_name'))]"
-        //     ],
-        //     "properties": {
-        //         "publisher": "Microsoft.Azure.Extensions",
-        //         "type": "CustomScript",
-        //         "typeHandlerVersion": "2.1",
-        //         "autoUpgradeMinorVersion": true,
-        //         "settings": {
-        //         },
-        //         "protectedSettings": {
-        //             "commandToExecute": "sh install.sh",
-        //             "fileUris": ["https://raw.githubusercontent.com/zhengyiqun/AzureTemplateDemo/main/script/install.sh"]
-        //         }
-        //     }
-        // }
     ]
 }
